@@ -2,15 +2,25 @@
 *.iml
 *.ipr
 *.iws
-.idea/
+
+### Hidden Files ###
+.*
 
 ### Package Files ###
 *.jar
 *.war
 *.ear
+temp/
 
 ### Maven ###
 target/
 
+### Gradle ###
+build/
+bin/
+
 ### Custom ###
 server/*
+
+### Not Gitignore ###
+!.gitignore

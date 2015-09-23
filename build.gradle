@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+repositories {
+	mavenCentral()
+	maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/' }
+}
+
+test {
+	useTestNG()
+}
+
+dependencies {
+	compile project(':Core')
+	compile group: 'org.bukkit', name: 'bukkit', version: '1.8.8-R0.1-SNAPSHOT'
+
+	testCompile group: 'org.testng', name: 'testng', version: '6.9.6'
+}
