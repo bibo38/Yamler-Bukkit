@@ -1,23 +1,20 @@
-package converter.config;
+package org.yamler.bukkit.tests.converter.config;
 
-import helper.TestItemStack;
-import net.cubespace.Yamler.Config.Config;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.yamler.bukkit.Converter.ItemStack;
+import org.yamler.bukkit.tests.helper.TestItemStack;
+import org.yamler.yamler.Config;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The test configuration to check for a correct working ItemStack.
  *
  * @author bibo38
- * @see converter.ItemStackConverterTest
+ * @see org.yamler.bukkit.tests.converter.ItemStackConverterTest
  */
 public class ItemStackTestConfig extends Config {
 
@@ -25,13 +22,13 @@ public class ItemStackTestConfig extends Config {
     public TestItemStack specialWool = new TestItemStack(Material.WOOL);
 
     /**
-     * The default constructor is used to add the {@link net.cubespace.Yamler.Converter.ItemStack} converter
+     * The default constructor is used to add the {@link ItemStack} converter
      * and add a special ItemMeta class to the {@link this#specialWool} variable to test the converter.
      *
      * @throws Exception When the converter cannot be added
      */
     public ItemStackTestConfig() throws Exception {
-        addConverter(net.cubespace.Yamler.Converter.ItemStack.class);
+        addConverter(ItemStack.class);
 
         specialWool.setItemMeta(new ItemMeta() {
             @Override

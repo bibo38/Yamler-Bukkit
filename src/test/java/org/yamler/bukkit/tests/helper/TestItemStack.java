@@ -1,4 +1,4 @@
-package helper;
+package org.yamler.bukkit.tests.helper;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;

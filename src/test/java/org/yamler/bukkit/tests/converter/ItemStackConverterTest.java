@@ -1,11 +1,11 @@
-package converter;
+package org.yamler.bukkit.tests.converter;
 
-import base.BaseTest;
-import converter.config.ItemStackTestConfig;
-import net.cubespace.Yamler.Config.InvalidConfigurationException;
-import net.cubespace.Yamler.Converter.ItemStack;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
+import org.yamler.bukkit.Converter.ItemStack;
+import org.yamler.bukkit.tests.converter.config.ItemStackTestConfig;
+import org.yamler.yamler.InvalidConfigurationException;
+import org.yamler.bukkit.tests.base.BaseTest;
 
 /**
  * A basic ItemStack converter test to ensure the proper saving and

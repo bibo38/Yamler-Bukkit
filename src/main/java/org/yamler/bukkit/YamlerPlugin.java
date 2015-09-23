@@ -1,8 +1,6 @@
-package net.cubespace.Yamler;
+package org.yamler.bukkit;
 
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.IOException;
 
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)

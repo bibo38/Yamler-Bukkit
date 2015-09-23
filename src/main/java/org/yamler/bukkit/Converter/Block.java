@@ -1,10 +1,11 @@
-package net.cubespace.Yamler.Converter;
+package org.yamler.bukkit.Converter;
 
-import net.cubespace.Yamler.Config.ConfigSection;
-import net.cubespace.Yamler.Config.Converter.Converter;
-import net.cubespace.Yamler.Config.InternalConverter;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import org.yamler.yamler.ConfigSection;
+import org.yamler.yamler.Converter.Converter;
+import org.yamler.yamler.InternalConverter;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;

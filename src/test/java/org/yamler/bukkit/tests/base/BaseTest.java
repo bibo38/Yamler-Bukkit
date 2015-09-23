@@ -1,6 +1,6 @@
-package base;
+package org.yamler.bukkit.tests.base;
 
-import net.cubespace.Yamler.Config.Config;
+import org.yamler.yamler.Config;
 
 import java.io.File;
 
