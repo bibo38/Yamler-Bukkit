@@ -5,9 +5,9 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.yamler.yamler.ConfigSection;
 import org.yamler.yamler.Converter.Converter;
+import org.yamler.yamler.GenericData;
 import org.yamler.yamler.InternalConverter;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,21 +25,21 @@ public class Block implements Converter
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public Object toConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception
+	public Object toConfig(Class<?> type, Object obj) throws Exception
 	{
 		org.bukkit.block.Block block = (org.bukkit.block.Block) obj;
 
 		Converter locationConverter = converter.getConverter(org.bukkit.Location.class);
 		Map<String, Object> saveMap = new HashMap<>();
 		saveMap.put("id", block.getType() + ((block.getData() > 0) ? ":" + block.getData() : ""));
-		saveMap.put("location", locationConverter.toConfig(org.bukkit.Location.class, block.getLocation(), null));
+		saveMap.put("location", locationConverter.toConfig(org.bukkit.Location.class, block.getLocation()));
 
 		return saveMap;
 	}
 
 	@SuppressWarnings({"unchecked", "deprecation"})
 	@Override
-	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception
+	public Object fromConfig(Class type, Object section, GenericData genericData) throws Exception
 	{
 		Map<String, Object> blockMap = (Map<String, Object>) ((ConfigSection) section).getRawMap();
 		Map<String, Object> locationMap = (Map<String, Object>) ((ConfigSection) blockMap.get("location")).getRawMap();

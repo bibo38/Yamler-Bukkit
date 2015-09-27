@@ -3,9 +3,9 @@ package org.yamler.bukkit.Converter;
 import org.bukkit.Bukkit;
 import org.yamler.yamler.ConfigSection;
 import org.yamler.yamler.Converter.Converter;
+import org.yamler.yamler.GenericData;
 import org.yamler.yamler.InternalConverter;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class Location implements Converter
 	}
 
 	@Override
-	public Object toConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception
+	public Object toConfig(Class<?> type, Object obj) throws Exception
 	{
 		org.bukkit.Location location = (org.bukkit.Location) obj;
 		Map<String, Object> saveMap = new HashMap<>();
@@ -35,7 +35,7 @@ public class Location implements Converter
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception
+	public Object fromConfig(Class type, Object section, GenericData genericData) throws Exception
 	{
 		Map<String, Object> locationMap;
 		if(section instanceof Map)

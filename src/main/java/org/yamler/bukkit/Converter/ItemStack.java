@@ -4,9 +4,9 @@ import org.bukkit.Material;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.yamler.yamler.ConfigSection;
 import org.yamler.yamler.Converter.Converter;
+import org.yamler.yamler.GenericData;
 import org.yamler.yamler.InternalConverter;
 
-import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +24,7 @@ public class ItemStack implements Converter
 	}
 
 	@Override
-	public Object toConfig(Class<?> type, Object obj, ParameterizedType genericType) throws Exception
+	public Object toConfig(Class<?> type, Object obj) throws Exception
 	{
 		org.bukkit.inventory.ItemStack itemStack = (org.bukkit.inventory.ItemStack) obj;
 
@@ -39,7 +39,7 @@ public class ItemStack implements Converter
 		{
 			meta = new HashMap<>();
 			meta.put("name", itemStack.getItemMeta().hasDisplayName() ? itemStack.getItemMeta().getDisplayName() : null);
-			meta.put("lore", itemStack.getItemMeta().hasLore() ? listConverter.toConfig(List.class, itemStack.getItemMeta().getLore(), null) : null);
+			meta.put("lore", itemStack.getItemMeta().hasLore() ? listConverter.toConfig(List.class, itemStack.getItemMeta().getLore()) : null);
 		}
 
 		saveMap.put("meta", meta);
@@ -49,7 +49,7 @@ public class ItemStack implements Converter
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public Object fromConfig(Class type, Object section, ParameterizedType genericType) throws Exception
+	public Object fromConfig(Class type, Object section, GenericData genericData) throws Exception
 	{
 		Map itemstackMap;
 		Map metaMap = null;
@@ -85,7 +85,7 @@ public class ItemStack implements Converter
 			if(metaMap.get("lore") != null)
 			{
 				Converter listConverter = converter.getConverter(List.class);
-				meta.setLore((List<String>) listConverter.fromConfig(List.class, metaMap.get("lore"), null));
+				meta.setLore((List<String>) listConverter.fromConfig(List.class, metaMap.get("lore"), genericData));
 			}
 
 			itemStack.setItemMeta(meta);
