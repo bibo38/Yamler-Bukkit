@@ -1,4 +1,4 @@
 name: Yamler
-main : YamlerPlugin
-version: ${project.version}b-${build.number}
+main : org.yamler.bukkit.YamlerPlugin
+version: 1.0
 author: geNAZt
