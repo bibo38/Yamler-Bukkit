@@ -1,7 +1,9 @@
 package org.yamler.bukkit.Converter;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.yamler.yamler.ConfigSection;
 import org.yamler.yamler.Converter.Converter;
 import org.yamler.yamler.GenericData;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
+ * @author bibo38
  */
 public class ItemStack implements Converter
 {
@@ -38,8 +41,17 @@ public class ItemStack implements Converter
 		if(itemStack.hasItemMeta())
 		{
 			meta = new HashMap<>();
-			meta.put("name", itemStack.getItemMeta().hasDisplayName() ? itemStack.getItemMeta().getDisplayName() : null);
-			meta.put("lore", itemStack.getItemMeta().hasLore() ? listConverter.toConfig(List.class, itemStack.getItemMeta().getLore()) : null);
+			ItemMeta itemMeta = itemStack.getItemMeta();
+
+			meta.put("name", itemMeta.hasDisplayName() ? itemStack.getItemMeta().getDisplayName() : null);
+			meta.put("lore", itemMeta.hasLore() ? listConverter.toConfig(List.class, itemMeta.getLore()) : null);
+			if(itemMeta instanceof LeatherArmorMeta)
+				meta.put("color", Integer.toHexString(
+						((LeatherArmorMeta) itemMeta)
+							.getColor()
+							.asRGB()
+					).toUpperCase()
+				);
 		}
 
 		saveMap.put("meta", meta);
@@ -87,6 +99,14 @@ public class ItemStack implements Converter
 				Converter listConverter = converter.getConverter(List.class);
 				meta.setLore((List<String>) listConverter.fromConfig(List.class, metaMap.get("lore"), genericData));
 			}
+
+			if(meta instanceof LeatherArmorMeta)
+				((LeatherArmorMeta) meta).setColor(Color.fromRGB(
+						Integer.parseInt(
+								(String) metaMap.get("color"),
+								16
+						)
+				));
 
 			itemStack.setItemMeta(meta);
 		}
