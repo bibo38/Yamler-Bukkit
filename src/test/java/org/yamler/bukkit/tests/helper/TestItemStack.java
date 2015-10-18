@@ -6,6 +6,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -140,7 +141,7 @@ public class TestItemStack extends ItemStack
 				@Override
 				public Set<ItemFlag> getItemFlags()
 				{
-					return null;
+					return new HashSet<>();
 				}
 
 				@Override

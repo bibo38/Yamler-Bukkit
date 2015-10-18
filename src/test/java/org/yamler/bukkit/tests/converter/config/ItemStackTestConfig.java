@@ -71,7 +71,7 @@ public class ItemStackTestConfig extends Config
 			@Override
 			public boolean hasEnchants()
 			{
-				return true;
+				return false;
 			}
 
 			@Override
@@ -138,7 +138,7 @@ public class ItemStackTestConfig extends Config
 			@Override
 			public Set<ItemFlag> getItemFlags()
 			{
-				return null;
+				return new HashSet<>();
 			}
 
 			@Override

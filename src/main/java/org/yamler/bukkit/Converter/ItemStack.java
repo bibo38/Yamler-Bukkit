@@ -2,6 +2,8 @@ package org.yamler.bukkit.Converter;
 
 import org.bukkit.Color;
 import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.yamler.yamler.ConfigSection;
@@ -9,9 +11,7 @@ import org.yamler.yamler.Converter.Converter;
 import org.yamler.yamler.GenericData;
 import org.yamler.yamler.InternalConverter;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author geNAZt (fabian.fassbender42@googlemail.com)
@@ -52,6 +52,20 @@ public class ItemStack implements Converter
 							.asRGB()
 					).toUpperCase()
 				);
+
+			if(itemMeta.hasEnchants())
+			{
+				Map<String, Integer> enchants = new HashMap<>();
+				itemMeta.getEnchants().forEach((ench, level) -> enchants.put(ench.getName(), level));
+				meta.put("enchants", enchants);
+			}
+
+			if(itemMeta.getItemFlags().size() != 0)
+			{
+				List<String> flags = new ArrayList<>();
+				itemMeta.getItemFlags().forEach(flag -> flags.add(flag.name()));
+				meta.put("flags", flags);
+			}
 		}
 
 		saveMap.put("meta", meta);
@@ -65,16 +79,28 @@ public class ItemStack implements Converter
 	{
 		Map itemstackMap;
 		Map metaMap = null;
+		Map enchantMap = null;
+		List flags = null;
 
 		if(section instanceof Map)
 		{
 			itemstackMap = (Map) section;
 			metaMap = (Map) itemstackMap.get("meta");
+			if(metaMap != null)
+			{
+				enchantMap = (Map) metaMap.get("enchants");
+				flags = (List) metaMap.get("flags");
+			}
 		} else
 		{
 			itemstackMap = ((ConfigSection) section).getRawMap();
 			if(itemstackMap.get("meta") != null)
+			{
 				metaMap = ((ConfigSection) itemstackMap.get("meta")).getRawMap();
+				if(metaMap.get("enchants") != null)
+					enchantMap = ((ConfigSection) metaMap.get("enchants")).getRawMap();
+				flags = (List) metaMap.get("flags");
+			}
 		}
 
 		String[] temp = ((String) itemstackMap.get("id")).split(":");
@@ -107,6 +133,12 @@ public class ItemStack implements Converter
 								16
 						)
 				));
+
+			if(enchantMap != null)
+				enchantMap.forEach((ench, level) -> meta.addEnchant(Enchantment.getByName((String) ench), (int) level, true));
+
+			if(flags != null)
+				flags.forEach(flag -> meta.addItemFlags(ItemFlag.valueOf((String) flag)));
 
 			itemStack.setItemMeta(meta);
 		}
